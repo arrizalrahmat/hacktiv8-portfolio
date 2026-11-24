@@ -1,7 +1,9 @@
-const baseUrl = 'https://randomuser.me/api/?results=10';
+const baseUrl = 'https://randomuser.me/api/?results=12';
 
 const mentorList = document.getElementById('mentor-list');
-const mentorLoading = document.getElementById('mentor-loading');
+const mentorLoading = document.getElementById(
+  'mentor-loading',
+);
 const mentorError = document.getElementById('mentor-error');
 const mentorRetry = document.getElementById('mentor-retry');
 
@@ -16,19 +18,29 @@ const createElement = (tag, className, text) => {
 const createMentorCard = mentor => {
   const fullName = `${mentor.name.first} ${mentor.name.last}`;
 
-  const col = createElement('div', 'col-sm-6 col-lg-4 col-xl-3');
+  const col = createElement(
+    'div',
+    'col-sm-6 col-lg-4 col-xl-3',
+  );
   const card = createElement(
     'div',
     'card card-hover h-100 border-0 shadow-sm text-center',
   );
   const body = createElement('div', 'card-body p-4');
 
-  const photo = createElement('img', 'mentor-photo rounded-circle mb-3');
+  const photo = createElement(
+    'img',
+    'mentor-photo rounded-circle mb-3',
+  );
   photo.src = mentor.picture.large;
   photo.alt = fullName;
   photo.loading = 'lazy';
 
-  const name = createElement('h3', 'h5 fw-bold mb-1', fullName);
+  const name = createElement(
+    'h3',
+    'h5 fw-bold mb-1',
+    fullName,
+  );
   const location = createElement(
     'p',
     'text-secondary small mb-3',
@@ -63,7 +75,9 @@ const fetchMentors = async () => {
   try {
     const response = await fetch(baseUrl);
     if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
+      throw new Error(
+        `Request failed with status ${response.status}`,
+      );
     }
 
     const data = await response.json();
@@ -77,6 +91,7 @@ const fetchMentors = async () => {
 };
 
 mentorRetry.addEventListener('click', fetchMentors);
-document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById('year').textContent =
+  new Date().getFullYear();
 
 fetchMentors();
